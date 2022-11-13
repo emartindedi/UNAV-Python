@@ -19,7 +19,7 @@ def get_currencies(dir_path, name_file):
         print("The name of the file or the directory are incorrect")
 
 def ask_user_for_currency(df):
-    """ask the user for a currency
+    """ask the user a currency
     : df: pandas dataframe object which contains the wsname and altname of all the currencies availables in the kraken API
     : return: a string which contains the wsname of the currency selected by the user"""
     print("The possible answers are:")
