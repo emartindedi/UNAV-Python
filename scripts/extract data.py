@@ -2,7 +2,7 @@
 import os
 import pandas as pd
 import krakenex
-from pykrakenapi import KrakenAPI # Note: pykrakenapi requires Python >= 3.3, krakenex >= 2.0.0 and pandas.
+from pykrakenapi import KrakenAPI # Note: pykrakenapi requires Python >= 3.3, krakenex >= 2.0.0 and pandas
 
 def save_currencies(dir_path, name_file):
     """save into a csv file the wsname and altname of the currencies availables in the kraken API
@@ -25,7 +25,7 @@ def ask_user_for_currency(df):
     print("The possible answers are:")
     for idx, element in enumerate(list(df.index)):
         print("{}) {}".format(idx +1 , element))
-    # print("The possible answers", data.index) more simple
+    #print("The possible answers", df.index) more simple
     while True:
         try:
             user_curr = str(input("Enter the abbreviation of the currency wanted:"))
@@ -61,11 +61,11 @@ def get_dataframe_to_process(dir_path, name_file, data_name):
         if not os.path.isdir(dir_path):
             os.makedirs(dir_path) # If it does not exist the directory, we create it
         data = user_select_currency(currencies_names_df, user_curr)[0]
+        print(data.shape)
         data.to_csv('{}.csv'.format(os.path.join(dir_path, data_name))) # Save it
         print("Saved correctly")
     except OSError:
         print("The name of the file or the directory are incorrect")
-
     return user_select_currency(currencies_names_df, user_curr)
 
 
@@ -81,3 +81,4 @@ if __name__ == "__main__":
 
     # Save the dataframe wanted by the user in a file called 'dataset_to_process.csv' in data directory
     get_dataframe_to_process(dir_path, name_file, data_name)
+    # print(get_dataframe_to_process(dir_path, name_file, data_name)[0])
