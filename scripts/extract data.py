@@ -81,4 +81,3 @@ if __name__ == "__main__":
 
     # Save the dataframe wanted by the user in a file called 'dataset_to_process.csv' in data directory
     get_dataframe_to_process(dir_path, name_file, data_name)
-    # print(get_dataframe_to_process(dir_path, name_file, data_name)[0])
