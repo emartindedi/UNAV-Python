@@ -1,6 +1,7 @@
 # Import necessary libraries
 import os
 import pandas as pd
+import time
 import krakenex
 from pykrakenapi import KrakenAPI # Note: pykrakenapi requires Python >= 3.3, krakenex >= 2.0.0 and pandas
 
@@ -28,7 +29,7 @@ def ask_user_for_currency(df):
     #print("The possible answers", df.index) more simple
     while True:
         try:
-            user_curr = str(input("Enter the abbreviation of the currency wanted:"))
+            user_curr = str(input("Enter the abbreviation of the criptocurrency wanted:"))
             if user_curr in df.index:
                 break
             else:
@@ -43,7 +44,8 @@ def user_select_currency(df, curr):
     : df: pandas dataframe object which contains the wsname and altname of all the currencies availables in the kraken API
     : curr: a string which contains the wsname of the currency selected by the user
     : return: a tuple object which contains the dataframe for the currency curr and the last time"""
-    return (k.get_ohlc_data(df.loc[curr]['altname'], ascending=True))
+    time.sleep(5)
+    return (k.get_ohlc_data(df.loc[curr]['altname'], ascending=True, interval=interval))
 
 
 # -------------------------------------------------------------------------
@@ -71,8 +73,11 @@ def get_dataframe_to_process(dir_path, name_file, data_name):
 
 
 if __name__ == "__main__":
+    interval = 60 # mins, it will be used when downloading the data from the API, just to make sure the data extracted is from the last hour
+
     api = krakenex.API()  # Instance of the krakenex.API class
     k = KrakenAPI(api)  # Implements the Kraken API methods using the low-level krakenex python
+    info_df = k.get_asset_info # Some information of the dataset extracted
 
     # Decide the names of the directory for the outputs and the name of the file containing the names of the currencies
     dir_path = 'data'
