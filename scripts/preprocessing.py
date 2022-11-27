@@ -71,12 +71,12 @@ def get_percentile(df, percentile_rank, column):
     # First, sort by ascending columns, reset the indices
     df = df.sort_values(by=column).reset_index()
     index = (len(df.index) - 1) * percentile_rank / 100.0
-
-    return (df.at[index, column])
+    index = int(index)
+    return df.at[index, column]
 
 
 def delete_outliers(df, column,  k=1.5):
-    """Given a dataset and the name of a column it calculares the outlier cutoff and identify the outliers
+    """Given a dataset and the name of a column it calculates the outlier cutoff and identify the outliers
     : df: pandas dataframe
     : column: valid name column of the dataframe df
     : k: contant (int) generally 1.5
@@ -84,10 +84,8 @@ def delete_outliers(df, column,  k=1.5):
     # Compute the 25th percentile, the 75th percentile and the IQR
     p25 = get_percentile(df, 25, column)
     p75 = get_percentile(df, 75, column)
-
     # calculate interquartile range
     iqr = p75 - p25
-    print(iqr)
 
     # calculate the outlier cutoff
     # "Minimum non-outlier value": 25th percentile - 1.5 * IQR
@@ -122,6 +120,7 @@ def clean_columns(df):
     # Set the index the datetime
     if 'dtime' in df.columns:
         df.set_index("dtime", inplace=True)
+        df.sort_values(by='dtime', inplace=True) # Sort the values by time
         print(df.head(3))
         list_columns_to_delete.append('time')
     elif ('Date' in df.columns and 'Time' in df.columns):
@@ -149,10 +148,11 @@ def clean_columns(df):
     if decision_outliers == 'Y':
         print('Proceed to delete outliers of the dataset')
         delete_outliers(df, name_col_out)
-        print(delete_outliers(df, name_col_out))
+        #print(delete_outliers(df, name_col_out))
     else:
         print('Proceed to continue with outliers of the dataset')
 
+    #print(list_columns_to_delete)
     # Delete all the columns that we saved into the list 'list_columns_to_delete'
     df.drop(labels=list_columns_to_delete, axis='columns', inplace=True) #df.drop(labels=list_columns_to_delete, axis=1, inplace=True)
 
