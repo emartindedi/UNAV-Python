@@ -103,7 +103,6 @@ def delete_outliers(df, column,  k=1.5):
     return not_outliers
 
 
-
 def clean_columns(df):
     """Given a dataset, it cleans its columns.
     : df: pandas dataframe
@@ -184,7 +183,6 @@ def preprocessing(df):
     clean_rows(df)
 
     missing_values(df)
-
 
 
 
