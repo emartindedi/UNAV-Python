@@ -47,8 +47,6 @@ def user_select_currency(df, curr):
     time.sleep(5)
     return (k.get_ohlc_data(df.loc[curr]['altname'], ascending=True, interval=interval))
 
-
-# -------------------------------------------------------------------------
 def get_dataframe_to_process(dir_path, name_file, data_name):
     # Obtain a csv file with all names of available currencies
     save_currencies(dir_path, name_file)
