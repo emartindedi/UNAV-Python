@@ -23,10 +23,10 @@ class Analyze:
         while True:
             try:
                 periodos = int(input('¿Cuantos periodos anteriores te gustaría calcular la Media Movil?'))
-                if periodos > 0:
+                if (periodos > 0 and periodos <= 200):
                     break
                 else:
-                    print("Debe ser un numero entero mayor que cero")
+                    print("Debe ser un numero entero mayor que cero y menor que doscientos dias")
             except ValueError:
                 print('Invalid')
                 continue
@@ -35,7 +35,7 @@ class Analyze:
     def get_media_movil(self, periodos):
         """Get the media movil
         :param df: pandas dataframe
-        :param periodos: int value greater than cero (given by the user)
+        :param periodos: int value greater than cero and less than 200 (given by the user)
         :return: a pandas series"""
         return pd.Series(pd.Series.rolling(self.df['close'], periodos).mean())
 
@@ -57,13 +57,12 @@ class Analyze:
 
         rs = up_average / down_average
         rsi = 100 - (100 / (1 + rs))
-
+        print(rsi.head())
         return rsi
 
     def economy(self):
         """Save the values in the class"""
         self.media_movil = self.get_media_movil(self.get_periodos_user())
-        print(self.media_movil)
         self.rsi = self.get_rsi()
 
 
@@ -106,7 +105,7 @@ class Analyze:
     def graficos_pro(self):
         """"""
         st.title("Final Project Python for Data Analysis")
-        st.markdown("Done by: Elena Martin de Diego and Patricia Kremer Deve")
+        st.markdown("Done by: Elena Martin de Diego and Patricia Kremer Devesa")
         st.header("Datos de la criptomoneda " + self.cripto + " escogida")
         st.markdown("")
         st.dataframe(self.df.head())
