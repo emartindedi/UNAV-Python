@@ -59,9 +59,10 @@ class Get_Data:
         : df: pandas dataframe object which contains the wsname and altname of all the currencies availables in the kraken API
         : curr: a string which contains the wsname of the currency selected by the user
         : return: a tuple object which contains the dataframe for the currency curr and the last time"""
+        interval = 60
         api = krakenex.API()  # Instance of the krakenex.API class
         k = KrakenAPI(api)
-        interval = 60
+        k.get_tradable_asset_pairs()
         time.sleep(5)
         return (k.get_ohlc_data(curr, ascending=True, interval=interval))
 
