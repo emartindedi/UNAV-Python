@@ -21,7 +21,7 @@ if __name__ == "__main__":
     preprocessing.general_clean('results', dataset_name, df)
 
     # Analysis and graphics
-    df_processed = pd.read_csv('{}.csv'.format(os.path.join('results', dataset_name + '_processed')))
+    df_processed = pd.read_csv('{}.csv'.format(os.path.join('results', dataset_name + '_processed')), index_col=0)
     analysis = Analyze(df_processed, data.cripto_user_selected)
     analysis.economy()
     analysis.graficos_pro()
