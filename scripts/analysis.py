@@ -67,7 +67,7 @@ class Analyze:
 
 
     def get_grafico_cotizaciones(self):
-        """"""
+        """Get the graphic of the cotizacion"""
         grafico_coti = go.Figure(data=[go.Candlestick(x=self.df.index,
                                                       open=self.df['open'],
                                                       high=self.df['high'],
@@ -83,7 +83,7 @@ class Analyze:
         return grafico_coti
 
     def get_grafico_media_movil(self):
-        """"""
+        """Graphic of the media movil"""
         grafico_mm = go.Figure(data=[go.Scatter(x=self.df.index, y=self.df['close'], line=dict(color='blue', width=3))])
         titulo_mm = 'Media Móvil de la criptomoneda: ' + self.cripto
         grafico_mm.update_layout(
@@ -93,7 +93,7 @@ class Analyze:
         return grafico_mm
 
     def get_grafico_rsi(self, rsi):
-        """"""
+        """Graphic of rsi"""
         grafico_rsi = go.Figure(data=[go.Scatter(x=rsi.index, y=rsi['close'], line=dict(color='red', width=3))])
         titulo_rsi = 'RSI de la criptomoneda: ' + self.cripto
         grafico_rsi.update_layout(
@@ -103,7 +103,7 @@ class Analyze:
         return grafico_rsi
 
     def graficos_pro(self):
-        """"""
+        """Selenium"""
         st.title("Final Project Python for Data Analysis")
         st.markdown("Done by: Elena Martin de Diego and Patricia Kremer Devesa")
         st.header("Datos de la criptomoneda " + self.cripto + " escogida")
