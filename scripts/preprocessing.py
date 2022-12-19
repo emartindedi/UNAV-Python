@@ -2,7 +2,7 @@
 import os
 import pandas as pd
 import numpy as np
-from numpy import percentile
+#from numpy import percentile
 import datetime
 from datetime import datetime
 
@@ -38,7 +38,7 @@ class Preprocessing:
             while True:
                 try:
                     method_missing = str(input("Choose a method for the missing values: delete, mean, median"))
-                    if method_missing in ['delete']:
+                    if method_missing in ['delete', 'mean', 'median']:
                         break
                     else:
                         print("Try again")
@@ -143,7 +143,7 @@ class Preprocessing:
                 continue
         if decision_outliers == 'Y':
             print('Proceed to delete outliers of the dataset')
-            self.delete_outliers(df, name_col_out)
+            df = self.delete_outliers(df, name_col_out)
 
         else:
             print('Proceed to continue with outliers of the dataset')
@@ -169,12 +169,11 @@ class Preprocessing:
 
         return df
 
-
     def general_clean(self, dir_path, data_name, df):
         # self.explore_dataset(df)
+        self.missing_values(df)
         self.clean_columns(df)
         self.clean_rows(df)
-        self.missing_values(df)
         try:
             if not os.path.isdir(dir_path):
                 os.makedirs(dir_path)  # If it does not exist the directory, we create it
