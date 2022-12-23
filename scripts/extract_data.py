@@ -31,7 +31,7 @@ class Get_Data:
             df.to_csv('{}.csv'.format(os.path.join(dir_path, name_file)))  # Save it
             print(f'Saved correctly:' '{}.csv'.format(os.path.join(dir_path, name_file)))
         except TypeError:
-            print("The name of the file or the direc'{}.csv''{}.csv'tory are incorrect")
+            print("The name of the file or the directory are incorrect")
 
     def ask_user_for_currency(self, df):
         """ask the user a currency
