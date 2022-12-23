@@ -66,8 +66,8 @@ class Get_Data:
         time.sleep(5)
         return (k.get_ohlc_data(curr, ascending=True, interval=interval))
 
-
     def get_dataframe_to_process(self, dir_path, name_file, data_name):
+
         # Obtain a csv file with all names of available currencies
         self.save_currencies(dir_path, name_file)
 
@@ -80,13 +80,17 @@ class Get_Data:
         print('You have selected: ', self.cripto_user_selected)
 
         try:
+
             if not os.path.isdir(dir_path):
                 os.makedirs(dir_path)  # If it does not exist the directory, we create it
+
             data = self.user_select_currency(self.cripto_user_selected)[0]
-            print(data.shape)
+
             data.to_csv('{}.csv'.format(os.path.join(dir_path, data_name)))  # Save it
             print(f'Saved correctly: ' '{}.csv'.format(os.path.join(dir_path, data_name)))
+
         except OSError:
             print("The name of the file or the directory are incorrect")
+
         return self.user_select_currency(self.cripto_user_selected)
 
