@@ -67,7 +67,10 @@ class Get_Data:
         return (k.get_ohlc_data(curr, ascending=True, interval=interval))
 
     def get_dataframe_to_process(self, dir_path, name_file, data_name):
-
+        """Manage the extraction of the dataset
+        :param: dir_path: path of the folder (directory) where it will be saved
+        :param: name_file: name (without .csv) of the file where it will be saved the currencies available
+        :param: data_name: name (without .csv) of the file where it will be saved the dataframe"""
         # Obtain a csv file with all names of available currencies
         self.save_currencies(dir_path, name_file)
 
