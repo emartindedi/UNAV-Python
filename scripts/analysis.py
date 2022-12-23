@@ -8,6 +8,8 @@ from dataclasses import dataclass
 @dataclass()
 class Analyze:
 
+    colors_plots = ['rgb(67,67,67)', 'rgb(115,115,115)', 'rgb(49,130,189)', 'rgb(189,189,189)']
+
     def __init__(self, df, cripto):
         self.df = df
         self.cripto = cripto
@@ -72,35 +74,52 @@ class Analyze:
                                                       open=self.df['open'],
                                                       high=self.df['high'],
                                                       low=self.df['low'],
-                                                      close=self.df['close'],
-                                                      ),
-                                       go.Scatter(x=self.df.index, y=self.df['close'], line=dict(color='pink', width=2))])
+                                                      close=self.df['close'])])
         titulo = 'Cotizacion de la criptomoneda: ' + self.cripto
         grafico_coti.update_layout(
             title=titulo,
-            yaxis_title='Valor de cierre'
+            yaxis_title='Valor de cierre',
+            xaxis_title='Mes-Dia'
         )
         return grafico_coti
 
     def get_grafico_media_movil(self):
         """Graphic of the media movil"""
-        grafico_mm = go.Figure(data=[go.Scatter(x=self.df.index, y=self.df['close'], line=dict(color='blue', width=3))])
+        grafico_mm = go.Figure(data=[go.Scatter(x=self.df.index, y=self.df['close'], line=dict(color=self.colors_plots[0], width=3))])
         titulo_mm = 'Media Móvil de la criptomoneda: ' + self.cripto
         grafico_mm.update_layout(
             title=titulo_mm,
-            yaxis_title='Valor de cierre'
+            yaxis_title='Valor de cierre',
+            xaxis_title='Mes-Dia'
         )
         return grafico_mm
 
     def get_grafico_rsi(self, rsi):
         """Graphic of rsi"""
-        grafico_rsi = go.Figure(data=[go.Scatter(x=rsi.index, y=rsi['close'], line=dict(color='red', width=3))])
+        grafico_rsi = go.Figure(data=[go.Scatter(x=rsi.index, y=rsi['close'], line=dict(color=self.colors_plots[1], width=1.5))])
         titulo_rsi = 'RSI de la criptomoneda: ' + self.cripto
         grafico_rsi.update_layout(
             title=titulo_rsi,
-            yaxis_title='Valor de cierre'
+            yaxis_title='Valor de cierre',
+            xaxis_title='Mes-Dia'
         )
         return grafico_rsi
+
+    def get_grafico_cotizacion_media_movil(self):
+        grafico_coti_mm = go.Figure(data=[go.Candlestick(x=self.df.index,
+                                                      open=self.df['open'],
+                                                      high=self.df['high'],
+                                                      low=self.df['low'],
+                                                      close=self.df['close']),
+                        go.Scatter(x=self.df.index, y=self.df['close'], line=dict(color=self.colors_plots[3], width=0.8))])
+        titulo = 'Cotizacion junto con la media movil de la criptomoneda: ' + self.cripto
+        grafico_coti_mm.update_layout(
+            title=titulo,
+            yaxis_title='Valor de cierre',
+            xaxis_title='Mes-Dia'
+        )
+        return grafico_coti_mm
+
 
     def graficos_pro(self):
         """Selenium"""
@@ -109,16 +128,21 @@ class Analyze:
         st.header("Datos de la criptomoneda " + self.cripto + " escogida")
         st.markdown("")
         st.dataframe(self.df.head())
+
         st.header("Cotizacion de la criptomoneda " + self.cripto)
         st.subheader(
             "Cotizacion: Tasación oficial del valor de un título admitido a negociación en un mercado bursátil.")
         st.markdown("")
         st.plotly_chart(self.get_grafico_cotizaciones())
+
         st.header("Media Móvil de la moneda")
-        st.subheader("Media Móvil: ")
-        st.markdown("")
+        st.markdown("La media móvil es un indicador técnico que calcula media de los precios en un periodo de tiempo establecido. Con ello se divide entre el numero total de datos recogido y se obtiene la línea de tendencia.")
         st.plotly_chart(self.get_grafico_media_movil())
+
         st.header("RSI de la moneda " + self.cripto)
-        st.subheader("RSI: ")
-        st.markdown("")
+        st.markdown("El RSI también denomiando Relative Strength Index es una herramienta económica para observar si los activos que se evalúan han presentado una tendencia de sobrecompra o sobreventa.")
         st.plotly_chart(self.get_grafico_rsi(self.get_rsi(periodosRSI=14)))
+
+        st.header("Gráfico conjunto de la cotizacion y la media móvil de la moneda", self.cripto)
+        st.markdown("")
+        st.plotly_chart(self.get_grafico_cotizacion_media_movil())
