@@ -122,7 +122,7 @@ class Analyze:
 
 
     def graficos_pro(self):
-        """Selenium"""
+        """Streamlit"""
         st.title("Final Project Python for Data Analysis")
         st.markdown("Done by: Elena Martin de Diego and Patricia Kremer Devesa")
         st.header("Datos de la criptomoneda " + self.cripto + " escogida")
