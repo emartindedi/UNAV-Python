@@ -20,3 +20,10 @@ To download it locally:
 ```python
 $ git clone https://github.com/emartindedi/UNAV-Python.git
 ```
+
+To run it:
+
+```python
+$ cd .\scripts\
+$ streamlit run .\workflow.py
+```
