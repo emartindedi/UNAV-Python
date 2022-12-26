@@ -14,3 +14,10 @@ Después de bajarlas, será necesario hacer una gráfica del movimiento que ha t
 
 Además, se hará una gráfica de la media móvil:
 https://www.rankia.com/diccionario/trading/medias-moviles
+
+To download it locally:
+
+```python
+$ git clone https://github.com/emartindedi/UNAV-Python
+```
+
